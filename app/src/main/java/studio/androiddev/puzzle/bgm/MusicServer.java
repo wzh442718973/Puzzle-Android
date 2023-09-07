@@ -16,7 +16,7 @@ import studio.androiddev.puzzle.R;
 public class MusicServer extends Service {
 
     private MediaPlayer mediaPlayer;
-    private int songList[]={R.raw.a, R.raw.b, R.raw.c,R.raw.d};
+    private int songList[]={R.raw.correct, R.raw.wrong};//, R.raw.c,R.raw.d};
     private int songIndex = 0;
     @Override
     public IBinder onBind(Intent intent) {
@@ -58,7 +58,7 @@ public class MusicServer extends Service {
 
     }
     public void nextsong() throws IOException {
-        songIndex = 0 + (int)(Math.random() * 4);
+        songIndex = 0 + (int)(Math.random() * songList.length);
             songplay();
     }
     private void songplay() throws IOException {

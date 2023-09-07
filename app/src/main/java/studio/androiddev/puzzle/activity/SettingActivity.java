@@ -6,26 +6,21 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import studio.androiddev.puzzle.PuzzleApplication;
 import studio.androiddev.puzzle.R;
+import studio.androiddev.puzzle.databinding.ActivitySettingBinding;
 import studio.androiddev.puzzle.utils.StaticValue;
 
-public class SettingActivity extends BaseActivity {
+public class SettingActivity extends BaseActivity implements View.OnClickListener {
 
-    @Bind(R.id.toolbar)
     Toolbar toolbar;
-    @Bind(R.id.levelChooseButton)
     Button levelChooseButton;
-    @Bind(R.id.buttonShare)
     ImageButton buttonShare;
 
     private int choosedLevel = 0;
@@ -39,13 +34,22 @@ public class SettingActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_setting);
-        ButterKnife.bind(this);
+
+        ActivitySettingBinding binding = ActivitySettingBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
+
+        toolbar = binding.toolbar;
+        levelChooseButton = binding.levelChooseButton;
+        buttonShare = binding.buttonShare;
+
         setSupportActionBar(toolbar);
 
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
         levelChooseButton.setText(getString(levels[PuzzleApplication.getLevel() - 3]));
 
+        levelChooseButton.setOnClickListener(this);
+        buttonShare.setOnClickListener(this);
     }
 
     @Override
@@ -122,7 +126,7 @@ public class SettingActivity extends BaseActivity {
         startActivity(Intent.createChooser(shareIntent, "分享到"));
     }
 
-    @OnClick({R.id.levelChooseButton, R.id.buttonShare})
+
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.levelChooseButton:

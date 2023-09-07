@@ -7,7 +7,9 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.widget.Toolbar;
+
+import androidx.appcompat.widget.Toolbar;
+
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,12 +29,11 @@ import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.List;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
 import cn.bmob.v3.listener.SaveListener;
 import studio.androiddev.puzzle.PuzzleApplication;
 import studio.androiddev.puzzle.R;
 import studio.androiddev.puzzle.bgm.MusicServer;
+import studio.androiddev.puzzle.databinding.ActivityGameBinding;
 import studio.androiddev.puzzle.dish.DishManager;
 import studio.androiddev.puzzle.dish.DragImageView;
 import studio.androiddev.puzzle.event.DishManagerInitFinishEvent;
@@ -49,17 +50,11 @@ import studio.androiddev.puzzle.utils.GlobalUtils;
 
 public class GameActivity extends BaseActivity {
 
-    @Bind(R.id.toolbar)
     Toolbar toolbar;
-    @Bind(R.id.dish)
     ImageView dish;
-    @Bind(R.id.layViewContainer)
     LinearLayout layViewContainer;
-    @Bind(R.id.gameContainer)
     LinearLayout gameContainer;
-    @Bind(R.id.timeText)
     TextView timeText;
-    @Bind(R.id.viewContainer)
     HorizontalScrollView viewContainer;
 
     private StaticHandler timeHandler = new StaticHandler(GameActivity.this);
@@ -79,8 +74,19 @@ public class GameActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_game);
-        ButterKnife.bind(this);
+
+        ActivityGameBinding binding = ActivityGameBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
+
+        toolbar = binding.toolbar;
+        dish = binding.dish;
+        layViewContainer = binding.layViewContainer;
+        gameContainer = binding.gameContainer;
+        timeText = binding.timeText;
+        viewContainer = binding.viewContainer;
+
+
         setSupportActionBar(toolbar);
         EventBus.getDefault().register(this);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
@@ -90,6 +96,7 @@ public class GameActivity extends BaseActivity {
         EventBus.getDefault().post(new DishManagerInitFinishEvent());
 
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(TimeEvent event) {
         time++;
@@ -127,7 +134,7 @@ public class GameActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
-        if(mBitmap != null && !mBitmap.isRecycled()){
+        if (mBitmap != null && !mBitmap.isRecycled()) {
             mBitmap.recycle();
         }
 
@@ -141,7 +148,7 @@ public class GameActivity extends BaseActivity {
             IPL = null;
         }
 
-        if(gameTimer != null){
+        if (gameTimer != null) {
             gameTimer.recycle();
             gameTimer = null;
         }
@@ -297,13 +304,13 @@ public class GameActivity extends BaseActivity {
 
         private final WeakReference<Activity> mActivity;
 
-        public StaticHandler(Activity activity){
+        public StaticHandler(Activity activity) {
             mActivity = new WeakReference<Activity>(activity);
         }
 
 
         @Override
-        public void handleMessage(Message msg){
+        public void handleMessage(Message msg) {
             super.handleMessage(msg);
             switch (msg.what) {
                 case GameTimer.MESSAGE_TIMER:

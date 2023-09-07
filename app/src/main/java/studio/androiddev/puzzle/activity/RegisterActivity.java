@@ -8,12 +8,10 @@ import android.widget.Toast;
 
 import java.util.Date;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import cn.bmob.v3.datatype.BmobDate;
 import cn.bmob.v3.listener.SaveListener;
 import studio.androiddev.puzzle.R;
+import studio.androiddev.puzzle.databinding.ActivityRegisterBinding;
 import studio.androiddev.puzzle.model.User;
 import studio.androiddev.puzzle.utils.RegExUtil;
 import studio.androiddev.puzzle.utils.SecurityUtils;
@@ -21,21 +19,27 @@ import studio.androiddev.puzzle.utils.SecurityUtils;
 public class RegisterActivity extends BaseActivity {
 
 
-    @Bind(R.id.et_phone_reg)
     EditText etPhoneReg;
-    @Bind(R.id.et_pwd_register)
     EditText etPwdRegister;
-    @Bind(R.id.et_pwd_confirm_register)
     EditText etPwdConfirmRegister;
-    @Bind(R.id.btn_register_res)
     ImageButton btnRegisterRes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
-        ButterKnife.bind(this);
 
+        ActivityRegisterBinding binding = ActivityRegisterBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
+
+        etPhoneReg = binding.etPhoneReg;
+        etPwdRegister = binding.etPwdRegister;
+        etPwdConfirmRegister = binding.etPwdConfirmRegister;
+        btnRegisterRes = binding.btnRegisterRes;
+
+        btnRegisterRes.setOnClickListener((view)->{
+            onClick();
+        });
     }
 
     private void regSaveInLocal(User user) {
@@ -60,7 +64,6 @@ public class RegisterActivity extends BaseActivity {
     }
 
 
-    @OnClick(R.id.btn_register_res)
     public void onClick() {
         if (RegExUtil.confirmPhone(etPhoneReg.getText().toString())) {
             if (RegExUtil.confirmPwd(etPwdRegister.getText().toString())) {

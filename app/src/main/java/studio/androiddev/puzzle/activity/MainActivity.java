@@ -3,31 +3,22 @@ package studio.androiddev.puzzle.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import studio.androiddev.puzzle.PuzzleApplication;
 import studio.androiddev.puzzle.R;
+import studio.androiddev.puzzle.databinding.ActivityMainBinding;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements View.OnClickListener {
 
-    @Bind(R.id.beginButton)
     ImageButton beginButton;
-    @Bind(R.id.rankButton)
     ImageButton rankButton;
-    @Bind(R.id.settingButton)
     ImageButton settingButton;
-    @Bind(R.id.exitButton)
     ImageButton exitButton;
-    @Bind(R.id.toolbar)
     Toolbar toolbar;
-    @Bind(R.id.userButton)
     ImageButton userButton;
 
     //用于记录两次按下返回键的间隔
@@ -36,12 +27,30 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
+
+        ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
+         beginButton = binding.beginButton;
+         rankButton = binding.rankButton;
+         settingButton = binding.settingButton;
+         exitButton = binding.exitButton;
+         toolbar = binding.toolbar;
+         userButton = binding.userButton;
+
+
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
 //        PuzzleApplication.initDishManager(4);
 
+
+        beginButton.setOnClickListener(this);
+        rankButton.setOnClickListener(this);
+        settingButton.setOnClickListener(this);
+        exitButton.setOnClickListener(this);
+        userButton.setOnClickListener((view)->{
+            this.onClick();
+        });
     }
 
     @Override
@@ -49,7 +58,7 @@ public class MainActivity extends BaseActivity {
         super.onDestroy();
     }
 
-    @OnClick({R.id.beginButton, R.id.rankButton, R.id.settingButton, R.id.exitButton})
+
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.beginButton:
@@ -89,7 +98,6 @@ public class MainActivity extends BaseActivity {
         context.startActivity(intent);
     }
 
-    @OnClick(R.id.userButton)
     public void onClick() {
         UserInfoActivity.actionStart(MainActivity.this);
     }

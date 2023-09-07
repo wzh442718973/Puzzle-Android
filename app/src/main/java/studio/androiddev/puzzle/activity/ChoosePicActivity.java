@@ -3,22 +3,19 @@ package studio.androiddev.puzzle.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
 import studio.androiddev.puzzle.R;
 import studio.androiddev.puzzle.adapter.ChoosePicGridViewAdapter;
+import studio.androiddev.puzzle.databinding.ActivityChoosePicBinding;
 
 public class ChoosePicActivity extends BaseActivity {
 
-    @Bind(R.id.toolbar)
     Toolbar toolbar;
-    @Bind(R.id.picContainer)
     GridView picContainer;
 
     public static final int [] icons={
@@ -33,8 +30,14 @@ public class ChoosePicActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_choose_pic);
-        ButterKnife.bind(this);
+
+        ActivityChoosePicBinding binding = ActivityChoosePicBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
+        toolbar = binding.toolbar;
+        picContainer = binding.picContainer;
+
+
         setSupportActionBar(toolbar);
         initView();
 

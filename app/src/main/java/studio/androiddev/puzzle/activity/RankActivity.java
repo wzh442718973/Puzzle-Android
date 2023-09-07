@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,16 +22,14 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.listener.FindListener;
 import studio.androiddev.puzzle.R;
+import studio.androiddev.puzzle.databinding.ActivityRankBinding;
 import studio.androiddev.puzzle.model.Record;
 
 public class RankActivity extends BaseActivity {
 
-    @Bind(R.id.toolbar)
     Toolbar toolbar;
 
     ListView mlv_rank;
@@ -41,8 +39,13 @@ public class RankActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_rank);
-        ButterKnife.bind(this);
+
+        ActivityRankBinding binding = ActivityRankBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
+        toolbar = binding.toolbar;
+
+
         setSupportActionBar(toolbar);
 
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);

@@ -11,37 +11,40 @@ import android.widget.Toast;
 
 import java.util.List;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.listener.FindListener;
 import studio.androiddev.puzzle.PuzzleApplication;
 import studio.androiddev.puzzle.R;
+import studio.androiddev.puzzle.databinding.ActivityLoginBinding;
 import studio.androiddev.puzzle.model.User;
 import studio.androiddev.puzzle.utils.RegExUtil;
 import studio.androiddev.puzzle.utils.SecurityUtils;
 
-public class LoginActivity extends BaseActivity {
-    @Bind(R.id.et_phone)
+public class LoginActivity extends BaseActivity implements View.OnClickListener {
     EditText met_phone;
-    @Bind(R.id.et_pwd)
     EditText met_pwd;
-    @Bind(R.id.btn_register)
     ImageButton mbtn_register;
-    @Bind(R.id.btn_login)
     ImageButton mbtn_login;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        Bmob.initialize(this, StaticValue.bmobId);
-        setContentView(R.layout.activity_login);
-        ButterKnife.bind(this);
+
+        ActivityLoginBinding binding = ActivityLoginBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
+
+         met_phone = binding.etPhone;
+         met_pwd = binding.etPwd;
+         mbtn_register = binding.btnRegister;
+         mbtn_login = binding.btnLogin;
+
+        mbtn_login.setOnClickListener(this);
+        mbtn_register.setOnClickListener(this);
 
     }
 
-    @OnClick({R.id.btn_register, R.id.btn_login})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_register:

@@ -1,16 +1,21 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    compileSdkVersion 33
+    buildToolsVersion "33.0.2"
 
     defaultConfig {
         applicationId "studio.androiddev.puzzle"
-        minSdkVersion 19
-        targetSdkVersion 23
+        minSdkVersion 22
+        targetSdkVersion 33
         versionCode 1
         versionName "1.0"
     }
+
+    buildFeatures {
+        viewBinding true
+    }
+
     buildTypes {
         release {
             minifyEnabled true
@@ -20,21 +25,21 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.1.1'
-    compile 'com.android.support:design:23.1.1'
-    compile 'com.jakewharton:butterknife:7.0.1'
-    compile 'com.squareup.okhttp:okhttp:2.4.0'
-    compile 'com.squareup.okio:okio:1.4.0'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    testImplementation 'junit:junit:4.12'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.9.0'
+
+    implementation 'com.squareup.okhttp:okhttp:2.4.0'
+    implementation 'com.squareup.okio:okio:1.4.0'
     //bmob-sdk ：Bmob的android sdk包
-    compile 'cn.bmob.android:bmob-sdk:3.4.5'
+    implementation 'cn.bmob.android:bmob-sdk:3.4.5'
 
-    compile 'com.google.android.gms:play-services-appindexing:8.1.0'
+    implementation 'com.google.android.gms:play-services-appindexing:8.1.0'
 
-    compile 'org.greenrobot:eventbus:3.0.0'
+    implementation 'org.greenrobot:eventbus:3.0.0'
 
-    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4-beta2'
-    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
-    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
+//    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.4-beta2'
+//    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
+//    testImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
 }

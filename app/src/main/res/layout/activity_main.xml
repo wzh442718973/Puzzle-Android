@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,17 +8,89 @@
     tools:context="studio.androiddev.puzzle.activity.RankActivity"
     android:background="@color/background">
 
-    <android.support.design.widget.AppBarLayout
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay"
         android:layout_alignParentTop="true">
 
-        <include layout="@layout/toolbar_main"
-            android:id="@+id/toolbar"/>
+        <androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/themeYellow"
+            android:id="@+id/toolbar"
+            android:minHeight="?attr/actionBarSize">
 
-    </android.support.design.widget.AppBarLayout>
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/userButton"
+                android:background="@mipmap/user"/>
+            <ImageView
+                android:id="@+id/toolbar_edit"
+                android:layout_width="90dp"
+                android:layout_height="20dp"
+                android:layout_gravity="end"
+                android:layout_marginEnd="30dp"
+                android:alpha="0.5"
+                android:src="@drawable/puzzle_en"/>
+        </androidx.appcompat.widget.Toolbar>
 
-    <include layout="@layout/content_main" />
+    </com.google.android.material.appbar.AppBarLayout>
 
-</android.support.design.widget.CoordinatorLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="50dp"
+        android:orientation="vertical"
+        android:id="@+id/buttonGroup"
+        tools:context=".activity.MainActivity"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:showIn="@layout/activity_main">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/beginButton"
+            android:background="@mipmap/button_begin"
+            android:contentDescription="Begin"
+            android:layout_marginBottom="@dimen/main_buttons_margin"
+            android:layout_marginTop="@dimen/main_buttons_margin"
+            android:layout_gravity="center_horizontal"/>
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/rankButton"
+            android:background="@mipmap/button_rank"
+            android:contentDescription="Rank"
+            android:layout_marginBottom="@dimen/main_buttons_margin"
+            android:layout_marginTop="@dimen/main_buttons_margin"
+            android:layout_gravity="center_horizontal"/>
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/settingButton"
+            android:background="@mipmap/button_setting"
+            android:contentDescription="Setting"
+            android:layout_marginBottom="@dimen/main_buttons_margin"
+            android:layout_marginTop="@dimen/main_buttons_margin"
+            android:layout_gravity="center_horizontal"/>
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/exitButton"
+            android:background="@mipmap/button_exit"
+            android:contentDescription="Exit"
+            android:layout_marginBottom="@dimen/main_buttons_margin"
+            android:layout_marginTop="@dimen/main_buttons_margin"
+            android:layout_gravity="center_horizontal"/>
+
+    </LinearLayout>
+
+
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

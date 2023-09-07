@@ -9,7 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,7 +24,6 @@ import android.widget.TextView;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -32,9 +31,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.listener.FindListener;
@@ -42,10 +38,11 @@ import cn.bmob.v3.listener.UpdateListener;
 import cn.bmob.v3.listener.UploadFileListener;
 import studio.androiddev.puzzle.PuzzleApplication;
 import studio.androiddev.puzzle.R;
+import studio.androiddev.puzzle.databinding.ActivityUserInfoBinding;
 import studio.androiddev.puzzle.model.Record;
 import studio.androiddev.puzzle.model.User;
 
-public class UserInfoActivity extends BaseActivity {
+public class UserInfoActivity extends BaseActivity implements View.OnClickListener {
 
     private static int CAMERA_REQUEST_CODE = 1;
     private static int GALLERY_REQUEST_CODE = 2;
@@ -54,23 +51,14 @@ public class UserInfoActivity extends BaseActivity {
     private static final String IMAGE_FILE_LOCATION = "file:///sdcard/temp.jpg";//temp file
     Uri imageUri = Uri.parse(IMAGE_FILE_LOCATION);//The Uri to store the big bitmap
 
-    @Bind(R.id.fresco_logo)
     ImageView imageView;
-    @Bind(R.id.et_nickname)
     EditText met_nickname;
-    @Bind(R.id.met_phone_userinfo)
     EditText met_phone;
-    @Bind(R.id.et_mail)
     EditText met_mail;
-    @Bind(R.id.et_rank)
     EditText met_rank;
-    @Bind(R.id.lv_record)
     ListView lv_record;
-    @Bind(R.id.btn_changePwd)
     ImageButton mbtn_changePwd;
-    @Bind(R.id.btn_exitAccount)
     ImageButton mbtn_exit;
-    @Bind(R.id.toolbar)
     Toolbar toolbar;
 
 
@@ -83,8 +71,24 @@ public class UserInfoActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_info);
-        ButterKnife.bind(this);
+
+        ActivityUserInfoBinding binding = ActivityUserInfoBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
+
+         imageView = binding.frescoLogo;
+         met_nickname = binding.etNickname;
+         met_phone = binding.metPhoneUserinfo;
+         met_mail = binding.etMail;
+         met_rank = binding.etRank;
+         lv_record = binding.lvRecord;
+         mbtn_changePwd = binding.btnChangePwd;
+         mbtn_exit = binding.btnExitAccount;
+         toolbar = binding.toolbar;
+
+        mbtn_changePwd.setOnClickListener(this);
+        mbtn_exit.setOnClickListener(this);
+
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
 
@@ -362,7 +366,7 @@ public class UserInfoActivity extends BaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick({R.id.btn_changePwd, R.id.btn_exitAccount})
+
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_changePwd:

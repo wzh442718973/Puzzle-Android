@@ -4,7 +4,6 @@ import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.squareup.leakcanary.LeakCanary;
 
 import cn.bmob.v3.Bmob;
 import studio.androiddev.puzzle.dish.DishManager;
@@ -38,7 +37,6 @@ public class PuzzleApplication extends Application{
     @Override
     public void onCreate(){
         super.onCreate();
-        LeakCanary.install(this);
         Bmob.initialize(this, StaticValue.bmobId);
         if(mContext == null) mContext = getApplicationContext();
         SharedPreferences pref = getSharedPreferences(StaticValue.SP_NAME, MODE_PRIVATE);
